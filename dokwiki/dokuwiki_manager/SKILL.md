@@ -190,6 +190,10 @@ Only after the user selects an option (or provides a custom path), proceed to ge
 - Explain your structural choices clearly (e.g., *"I mapped this to `tech:ai:llm` and implemented your choice to append it at the bottom."*).
 - **Mandatory Final Question**: Conclude the interaction with: **"Would you like to save this page? (Yes/No)"**
 - Wait for user feedback. If **Yes**, invoke the DokuWiki MCP (`dokuwiki_putPage`) to commit the changes. If **No**, ask for adjustments.
+- **After every successful save**: Immediately output the full clickable link at the very end using this format:  
+  **Full link:**  
+  `https://[your-dokuwiki-server]/doku.php?id=full:namespace:page_name`  
+  Example: `https://127.0.0.1/dokuwiki/doku.php?id=ai:llm:start`
 
 ---
 
@@ -277,5 +281,6 @@ If a required operation is not mapped in this skill, inform the user and suggest
 - **Semantic Intelligence**: Use both narrow (microscope) and broad (telescope) search strategies to find the best home for new content.
 - **Clean DokuWiki Output**: All generated content must be valid native DokuWiki syntax. When in doubt, re-validate against the cheat sheet above.
 - **Activation Enforcement**: Messages containing "Manage dokuwiki" / "dokuwiki manager" must force this skill to activate and prevent raw MCP bypass. The router/main agent must respect this priority.
+- **Always Provide Full Link**: After any successful save (`dokuwiki_putPage`), the final message **must** include the complete viewable URL.
 
 This skill turns raw hoarded knowledge into well-structured, interlinked DokuWiki pages with minimal user effort while maintaining full human oversight at every decision point. Real usage has shown that strict attention to list indentation, full-page previews, and reliable skill activation dramatically improves user trust and reduces correction loops.
